@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2023 at 05:22 PM
+-- Generation Time: May 21, 2023 at 08:51 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -18,10 +18,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `attendance`
+-- Database: `cse_485_btth02`
 --
-CREATE DATABASE IF NOT EXISTS `attendance` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `attendance`;
 
 -- --------------------------------------------------------
 
@@ -45,21 +43,6 @@ INSERT INTO `attendance` (`AttID`, `AttDate`, `CourseID`, `StudentID`, `AttStatu
 (1, '2023-05-17', 1, 1, 'có '),
 (2, '2023-05-15', 1, 2, 'vắng');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `attendance`
---
-ALTER TABLE `attendance`
-  ADD PRIMARY KEY (`AttID`);
---
--- Database: `classes`
---
-CREATE DATABASE IF NOT EXISTS `classes` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `classes`;
-
 -- --------------------------------------------------------
 
 --
@@ -80,31 +63,6 @@ CREATE TABLE `classes` (
 INSERT INTO `classes` (`ClassID`, `CourseID`, `IntroductorID`, `Time`) VALUES
 (1, 1, 1, '12:50:00'),
 (2, 2, 2, '15:40:00');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `classes`
---
-ALTER TABLE `classes`
-  ADD PRIMARY KEY (`ClassID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `classes`
---
-ALTER TABLE `classes`
-  MODIFY `ClassID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- Database: `courses`
---
-CREATE DATABASE IF NOT EXISTS `courses` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `courses`;
 
 -- --------------------------------------------------------
 
@@ -127,31 +85,6 @@ INSERT INTO `courses` (`CourseID`, `Title`, `Descript`, `Course code`) VALUES
 (1, 'lập trình c++', 'học từ cơ bản đến nâng cao', '62th2'),
 (2, 'nền tảng web', 'viết một trang web cơ bản', '62th2');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `courses`
---
-ALTER TABLE `courses`
-  ADD PRIMARY KEY (`CourseID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `courses`
---
-ALTER TABLE `courses`
-  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- Database: `introductors`
---
-CREATE DATABASE IF NOT EXISTS `introductors` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `introductors`;
-
 -- --------------------------------------------------------
 
 --
@@ -172,31 +105,6 @@ CREATE TABLE `introductors` (
 INSERT INTO `introductors` (`IntroductorID`, `FullName`, `Email`, `Phone`) VALUES
 (1, 'Lê Thị Ngọc Ánh', 'ngocanh@gmail.com', '0965245420'),
 (2, 'Nguyễn Văn B', 'B@gmail.com', '0456564466');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `introductors`
---
-ALTER TABLE `introductors`
-  ADD PRIMARY KEY (`IntroductorID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `introductors`
---
-ALTER TABLE `introductors`
-  MODIFY `IntroductorID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- Database: `reports`
---
-CREATE DATABASE IF NOT EXISTS `reports` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `reports`;
 
 -- --------------------------------------------------------
 
@@ -220,21 +128,6 @@ INSERT INTO `reports` (`ReportID`, `CourseID`, `StudentID`, `Participants`, `Abs
 (1, 1, 1, 75, 1),
 (2, 2, 2, 100, 0);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `reports`
---
-ALTER TABLE `reports`
-  ADD PRIMARY KEY (`ReportID`);
---
--- Database: `students`
---
-CREATE DATABASE IF NOT EXISTS `students` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `students`;
-
 -- --------------------------------------------------------
 
 --
@@ -256,31 +149,6 @@ CREATE TABLE `students` (
 INSERT INTO `students` (`StudentID`, `FullName`, `BirthDay`, `Email`, `Phone`) VALUES
 (1, 'Nguyen Van A', '2002-01-13', 'A@gmail.com', 312646454),
 (2, 'Nguyễn Thị B', '2002-10-17', 'Bbb@gmail.com', 454564568);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `students`
---
-ALTER TABLE `students`
-  ADD PRIMARY KEY (`StudentID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `students`
---
-ALTER TABLE `students`
-  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- Database: `user`
---
-CREATE DATABASE IF NOT EXISTS `user` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `user`;
 
 -- --------------------------------------------------------
 
@@ -310,6 +178,42 @@ INSERT INTO `user` (`UserID`, `Name`, `Email`, `Password`, `Role`) VALUES
 --
 
 --
+-- Indexes for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD PRIMARY KEY (`AttID`);
+
+--
+-- Indexes for table `classes`
+--
+ALTER TABLE `classes`
+  ADD PRIMARY KEY (`ClassID`);
+
+--
+-- Indexes for table `courses`
+--
+ALTER TABLE `courses`
+  ADD PRIMARY KEY (`CourseID`);
+
+--
+-- Indexes for table `introductors`
+--
+ALTER TABLE `introductors`
+  ADD PRIMARY KEY (`IntroductorID`);
+
+--
+-- Indexes for table `reports`
+--
+ALTER TABLE `reports`
+  ADD PRIMARY KEY (`ReportID`);
+
+--
+-- Indexes for table `students`
+--
+ALTER TABLE `students`
+  ADD PRIMARY KEY (`StudentID`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -318,6 +222,30 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `classes`
+--
+ALTER TABLE `classes`
+  MODIFY `ClassID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `introductors`
+--
+ALTER TABLE `introductors`
+  MODIFY `IntroductorID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
