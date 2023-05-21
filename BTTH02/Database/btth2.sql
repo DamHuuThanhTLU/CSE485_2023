@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2023 at 08:51 AM
+-- Generation Time: May 21, 2023 at 05:49 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `cse_485_btth02`
+-- Database: `btth2`
 --
 
 -- --------------------------------------------------------
@@ -28,20 +28,45 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `attendance` (
-  `AttID` int(11) NOT NULL,
-  `AttDate` date NOT NULL,
-  `CourseID` int(11) NOT NULL,
-  `StudentID` int(11) NOT NULL,
-  `AttStatus` varchar(20) NOT NULL
+  `id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `attendance` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `attendance`
 --
 
-INSERT INTO `attendance` (`AttID`, `AttDate`, `CourseID`, `StudentID`, `AttStatus`) VALUES
-(1, '2023-05-17', 1, 1, 'có '),
-(2, '2023-05-15', 1, 2, 'vắng');
+INSERT INTO `attendance` (`id`, `date`, `course_id`, `student_id`, `attendance`) VALUES
+(1, '0000-00-00', 1, 1, 'có mặt'),
+(2, '0000-00-00', 3, 1, 'vắng'),
+(3, '0000-00-00', 2, 1, 'có mặt');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `authentication_authorization`
+--
+
+CREATE TABLE `authentication_authorization` (
+  `id` int(5) NOT NULL,
+  `username` varchar(20) DEFAULT NULL,
+  `password` varchar(20) DEFAULT NULL,
+  `role` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `authentication_authorization`
+--
+
+INSERT INTO `authentication_authorization` (`id`, `username`, `password`, `role`) VALUES
+(1, 'nguyenthuan', '1211', 'sinh vien'),
+(2, 'buithanh', '1234', 'sinh vien'),
+(3, 'trannam', '3456', 'giao vien'),
+(4, 'admin1', 'root', 'admin'),
+(5, 'admin2', '6789', 'admin');
 
 -- --------------------------------------------------------
 
@@ -50,19 +75,20 @@ INSERT INTO `attendance` (`AttID`, `AttDate`, `CourseID`, `StudentID`, `AttStatu
 --
 
 CREATE TABLE `classes` (
-  `ClassID` int(11) NOT NULL,
-  `CourseID` int(11) NOT NULL,
-  `IntroductorID` int(11) NOT NULL,
-  `Time` varchar(50) NOT NULL
+  `class_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `instructor_id` int(11) NOT NULL,
+  `time_period` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `classes`
 --
 
-INSERT INTO `classes` (`ClassID`, `CourseID`, `IntroductorID`, `Time`) VALUES
-(1, 1, 1, '12:50:00'),
-(2, 2, 2, '15:40:00');
+INSERT INTO `classes` (`class_id`, `course_id`, `instructor_id`, `time_period`) VALUES
+(1, 1, 1, 'thứ 2'),
+(2, 2, 2, 'thứ 4'),
+(3, 1, 2, 'thứ 6');
 
 -- --------------------------------------------------------
 
@@ -71,40 +97,44 @@ INSERT INTO `classes` (`ClassID`, `CourseID`, `IntroductorID`, `Time`) VALUES
 --
 
 CREATE TABLE `courses` (
-  `CourseID` int(11) NOT NULL,
-  `Title` varchar(100) NOT NULL,
-  `Descript` text NOT NULL,
-  `Course code` varchar(20) NOT NULL
+  `id` int(11) NOT NULL,
+  `course_code` varchar(10) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`CourseID`, `Title`, `Descript`, `Course code`) VALUES
-(1, 'lập trình c++', 'học từ cơ bản đến nâng cao', '62th2'),
-(2, 'nền tảng web', 'viết một trang web cơ bản', '62th2');
+INSERT INTO `courses` (`id`, `course_code`, `title`, `description`) VALUES
+(1, 'MMT_k63_20', 'Mạng máy tính', 'kỳ_2'),
+(2, 'ATTT_k62_2', 'An toàn thông tin', 'kỳ_2'),
+(3, 'NMLT_k64_2', 'Nhập môn lập trình', 'GD1_kỳ_1'),
+(4, 'PTTKHTTT_k', 'Phân tích và thiết kế hệ thống thông tin', 'GD2_kỳ_2'),
+(5, 'LSD_k62_20', 'Lịch sử đảng', 'GD1_kỳ_2');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `introductors`
+-- Table structure for table `lecturers`
 --
 
-CREATE TABLE `introductors` (
-  `IntroductorID` int(11) NOT NULL,
-  `FullName` varchar(100) NOT NULL,
-  `Email` varchar(100) NOT NULL,
-  `Phone` varchar(20) NOT NULL
+CREATE TABLE `lecturers` (
+  `lecturer_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone_number` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `introductors`
+-- Dumping data for table `lecturers`
 --
 
-INSERT INTO `introductors` (`IntroductorID`, `FullName`, `Email`, `Phone`) VALUES
-(1, 'Lê Thị Ngọc Ánh', 'ngocanh@gmail.com', '0965245420'),
-(2, 'Nguyễn Văn B', 'B@gmail.com', '0456564466');
+INSERT INTO `lecturers` (`lecturer_id`, `name`, `email`, `phone_number`) VALUES
+(1, 'Nguyễn Thị C', 'ntc@gmail.com', '0346546565'),
+(2, 'Nguyễn Văn B', 'nvb@gmail.com', '0346546565'),
+(3, 'lê thi A', 'lta@gmail.com', '0346546565');
 
 -- --------------------------------------------------------
 
@@ -113,20 +143,12 @@ INSERT INTO `introductors` (`IntroductorID`, `FullName`, `Email`, `Phone`) VALUE
 --
 
 CREATE TABLE `reports` (
-  `ReportID` int(11) NOT NULL,
-  `CourseID` int(11) NOT NULL,
-  `StudentID` int(11) NOT NULL,
-  `Participants` float NOT NULL,
-  `Absent` int(20) NOT NULL
+  `report_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `attendance_date` date NOT NULL,
+  `attendance_status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `reports`
---
-
-INSERT INTO `reports` (`ReportID`, `CourseID`, `StudentID`, `Participants`, `Absent`) VALUES
-(1, 1, 1, 75, 1),
-(2, 2, 2, 100, 0);
 
 -- --------------------------------------------------------
 
@@ -135,43 +157,22 @@ INSERT INTO `reports` (`ReportID`, `CourseID`, `StudentID`, `Participants`, `Abs
 --
 
 CREATE TABLE `students` (
-  `StudentID` int(11) NOT NULL,
-  `FullName` varchar(100) NOT NULL,
-  `BirthDay` date NOT NULL,
-  `Email` varchar(100) NOT NULL,
-  `Phone` int(20) NOT NULL
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `birth_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`StudentID`, `FullName`, `BirthDay`, `Email`, `Phone`) VALUES
-(1, 'Nguyen Van A', '2002-01-13', 'A@gmail.com', 312646454),
-(2, 'Nguyễn Thị B', '2002-10-17', 'Bbb@gmail.com', 454564568);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-CREATE TABLE `user` (
-  `UserID` int(11) NOT NULL,
-  `Name` varchar(100) NOT NULL,
-  `Email` varchar(100) NOT NULL,
-  `Password` varchar(50) NOT NULL,
-  `Role` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`UserID`, `Name`, `Email`, `Password`, `Role`) VALUES
-(1, 'Admin', 'admin@gmail.com', '12335', 'quản trị viên'),
-(2, 'giảng viên A', 'gva@gmail.com', '123456', 'giảng viên'),
-(3, 'sinh viên A', 'sva@gmail.com', '123456', 'sinh viên');
+INSERT INTO `students` (`id`, `name`, `email`, `birth_date`) VALUES
+(1, 'Nguyễn Văn A', 'nguyenvana@gmail.com', '1998-03-14'),
+(2, 'Trần Văn B', 'tranvanb@gmail.com', '2003-07-18'),
+(3, 'Lê Thị C', 'lethic@gmail.com', '2000-05-26'),
+(4, 'Bùi Văn D', 'buivand@gmail.com', '2004-07-24'),
+(5, 'Phạm Thị E', 'phamthie@gmail.com', '2003-01-18');
 
 --
 -- Indexes for dumped tables
@@ -181,77 +182,120 @@ INSERT INTO `user` (`UserID`, `Name`, `Email`, `Password`, `Role`) VALUES
 -- Indexes for table `attendance`
 --
 ALTER TABLE `attendance`
-  ADD PRIMARY KEY (`AttID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `course_id` (`course_id`),
+  ADD KEY `student_id` (`student_id`);
+
+--
+-- Indexes for table `authentication_authorization`
+--
+ALTER TABLE `authentication_authorization`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `classes`
 --
 ALTER TABLE `classes`
-  ADD PRIMARY KEY (`ClassID`);
+  ADD PRIMARY KEY (`class_id`),
+  ADD KEY `course_id` (`course_id`),
+  ADD KEY `instructor_id` (`instructor_id`);
 
 --
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
-  ADD PRIMARY KEY (`CourseID`);
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `introductors`
+-- Indexes for table `lecturers`
 --
-ALTER TABLE `introductors`
-  ADD PRIMARY KEY (`IntroductorID`);
+ALTER TABLE `lecturers`
+  ADD PRIMARY KEY (`lecturer_id`);
 
 --
 -- Indexes for table `reports`
 --
 ALTER TABLE `reports`
-  ADD PRIMARY KEY (`ReportID`);
+  ADD PRIMARY KEY (`report_id`),
+  ADD KEY `course_id` (`course_id`),
+  ADD KEY `student_id` (`student_id`);
 
 --
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`StudentID`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`UserID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `attendance`
+--
+ALTER TABLE `attendance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `authentication_authorization`
+--
+ALTER TABLE `authentication_authorization`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `ClassID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `introductors`
+-- AUTO_INCREMENT for table `lecturers`
 --
-ALTER TABLE `introductors`
-  MODIFY `IntroductorID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `lecturers`
+  MODIFY `lecturer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `reports`
+--
+ALTER TABLE `reports`
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `user`
+-- Constraints for dumped tables
 --
-ALTER TABLE `user`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `attendance_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
+
+--
+-- Constraints for table `classes`
+--
+ALTER TABLE `classes`
+  ADD CONSTRAINT `classes_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `classes_ibfk_2` FOREIGN KEY (`instructor_id`) REFERENCES `lecturers` (`lecturer_id`);
+
+--
+-- Constraints for table `reports`
+--
+ALTER TABLE `reports`
+  ADD CONSTRAINT `reports_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `reports_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
